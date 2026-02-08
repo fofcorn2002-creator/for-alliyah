@@ -41,7 +41,6 @@
             align-items: center;
         }
 
-        /* Red Envelope Design */
         .envelope-wrapper { cursor: pointer; text-align: center; }
         .envelope {
             width: 150px; height: 100px;
@@ -62,7 +61,6 @@
         .heart-seal { position: absolute; top: -10px; z-index: 5; font-size: 2.2rem; width: 100%; text-align: center; animation: heartbeat 1.5s infinite; }
         @keyframes heartbeat { 0%, 100% {transform: scale(1);} 50% {transform: scale(1.15);} }
 
-        /* Polaroid Image Style */
         .slideshow-img {
             width: 100%; height: 380px;
             object-fit: cover;
@@ -73,11 +71,12 @@
 
         .letter-content {
             font-family: 'Dancing Script', cursive;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             line-height: 1.5;
             color: var(--ink);
             text-align: left;
             white-space: pre-wrap;
+            min-height: 250px;
         }
 
         .btn {
@@ -119,9 +118,17 @@
             <div class="letter-content">
 Alliyah, Baby...
 
-I wanted to take a moment to make something as special as you are. Looking back at these photos, I’m reminded of how lucky I am to have you by my side. Whether we’re being silly, taking mirror selfies, or just enjoying each other's company, every memory with you is my favorite one.
+I wanted to take a moment to make something as special as you are. Looking back at these photos, I’m reminded of how lucky I am to have you by my side. 
 
-You have this way of making everything feel brighter and better just by being there. You aren't just my girlfriend; you're my best friend and the person who makes me the happiest version of myself. I wanted to ask you this in a way that shows how much you truly mean to me.
+Whether we’re being silly, taking mirror selfies, or just enjoying each other's company, every single memory with you is my favorite one. You have this way of making everything feel brighter and better just by being there. </div>
+            <button class="btn" onclick="turnPage()">Turn page... 👉</button>
+        </div>
+
+        <div id="step4" class="card hidden">
+            <div class="letter-content">
+You aren't just my girlfriend; you're my best friend and the person who makes me the happiest version of myself. 
+
+I wanted to ask you this in a way that shows how much you truly mean to me. I've been thinking about this for a while, and I can't wait to see you again.
 
 You have my whole heart, today and every day after.
 
@@ -129,20 +136,20 @@ You have my whole heart, today and every day after.
             <button class="btn" onclick="showQuestion()">Read more...</button>
         </div>
 
-        <div id="step4" class="card hidden">
+        <div id="step5" class="card hidden">
             <h2 style="font-family: 'Dancing Script'; color: var(--valentine-red); font-size: 2.2rem;">Alliyah, Baby...</h2>
             <p style="font-size: 1.1rem; color: #444;">Will you go on a date with me this Saturday, Feb 14 2026, and be my Valentine?</p>
             <button id="yesBtn" class="btn" style="background: var(--valentine-red); color: white;" onclick="celebrate()">Yes, I will!</button>
             <button id="noBtn" style="border:none; background:none; color:#ccc; margin-top:20px; cursor: pointer;" onclick="moveNo()">No</button>
         </div>
 
-        <div id="step5" class="card hidden" style="min-height: 300px;">
+        <div id="step6" class="card hidden" style="min-height: 300px;">
             <h1 style="font-family: 'Dancing Script'; color: var(--valentine-red); font-size: 3.5rem; margin: 0;">Yaayyyy!</h1>
             <p style="font-size: 1.2rem; color: #444; margin: 15px 0;">I'll see you on Saturday, my Valentine.</p>
             <button class="btn" onclick="finalReveal()">I have one more thing to say...</button>
         </div>
 
-        <div id="step6" class="card hidden" style="min-height: 350px;">
+        <div id="step6_final" class="card hidden" style="min-height: 350px;">
             <h1 style="font-size: 4rem; font-weight: 700; color: var(--valentine-red); text-align: center; line-height: 1.1; margin: 0;">I love you so much!</h1>
         </div>
     </div>
@@ -150,16 +157,15 @@ You have my whole heart, today and every day after.
     <script>
         const audio = document.getElementById('bgMusic');
         let currentPhoto = 1;
-        const totalPhotos = 6;
 
         function startJourney() {
-            audio.play().catch(e => console.log("Audio play blocked"));
+            audio.play().catch(e => console.log("Audio blocked"));
             document.getElementById('step1').classList.add('hidden');
             document.getElementById('step2').classList.remove('hidden');
         }
 
         function nextPhoto() {
-            if (currentPhoto < totalPhotos) {
+            if (currentPhoto < 6) {
                 currentPhoto++;
                 document.getElementById('mainImage').src = `photo${currentPhoto}.jpg`;
             } else {
@@ -168,49 +174,33 @@ You have my whole heart, today and every day after.
             }
         }
 
-        function showQuestion() {
+        function turnPage() {
             document.getElementById('step3').classList.add('hidden');
             document.getElementById('step4').classList.remove('hidden');
+        }
+
+        function showQuestion() {
+            document.getElementById('step4').classList.add('hidden');
+            document.getElementById('step5').classList.remove('hidden');
         }
 
         function moveNo() {
             const yes = document.getElementById('yesBtn');
             let size = parseFloat(window.getComputedStyle(yes).fontSize);
             yes.style.fontSize = (size + 15) + "px";
-            yes.style.padding = "30px";
-            document.getElementById('noBtn').innerText = "Try the other button! 😉";
+            document.getElementById('noBtn').innerText = "Wrong button! 😉";
         }
 
         function celebrate() {
-            document.getElementById('step4').classList.add('hidden');
-            document.getElementById('step5').classList.remove('hidden');
-            
-            var duration = 5 * 1000;
-            var animationEnd = Date.now() + duration;
-            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-
-            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
-
-            var interval = setInterval(function() {
-                var timeLeft = animationEnd - Date.now();
-                if (timeLeft <= 0) { return clearInterval(interval); }
-                var particleCount = 50 * (timeLeft / duration);
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-            }, 250);
+            document.getElementById('step5').classList.add('hidden');
+            document.getElementById('step6').classList.remove('hidden');
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#d90429', '#ffffff'] });
         }
 
         function finalReveal() {
-            document.getElementById('step5').classList.add('hidden');
-            document.getElementById('step6').classList.remove('hidden');
-            
-            // Final burst of confetti
-            confetti({
-                particleCount: 200,
-                spread: 100,
-                origin: { y: 0.6 },
-                colors: ['#d90429', '#ffffff']
-            });
+            document.getElementById('step6').classList.add('hidden');
+            document.getElementById('step6_final').classList.remove('hidden');
+            confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
         }
     </script>
 </body>
