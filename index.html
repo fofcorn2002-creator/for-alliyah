@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For Alliyah ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
             --paper: #ffffff;
             --ink: #2b2d42;
             --valentine-red: #d90429;
-            --soft-pink: #ffe5ec;
+            --soft-cream: #fefae0;
         }
 
         body {
-            background-color: #fefae0; /* Light cream background for a vintage feel */
+            background-color: var(--soft-cream);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -28,18 +28,17 @@
         .container { width: 90%; max-width: 400px; z-index: 10; }
         .hidden { display: none !important; }
 
-        /* Stationery Card Effect */
         .card {
             background: var(--paper);
             padding: 25px;
-            border-radius: 5px;
-            box-shadow: 10px 10px 20px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            box-shadow: 10px 10px 25px rgba(0,0,0,0.05);
             border: 1px solid #e9edc9;
             text-align: center;
         }
 
-        /* Red Envelope Styles */
-        .envelope-wrapper { cursor: pointer; text-align: center; transition: transform 0.3s; }
+        /* Red Envelope Design */
+        .envelope-wrapper { cursor: pointer; text-align: center; }
         .envelope {
             width: 150px; height: 100px;
             background: var(--valentine-red);
@@ -57,9 +56,9 @@
             border-bottom: 50px solid var(--valentine-red);
         }
         .heart-seal { position: absolute; top: -10px; z-index: 5; font-size: 2.2rem; width: 100%; text-align: center; animation: heartbeat 1.5s infinite; }
-        @keyframes heartbeat { 0% {transform: scale(1);} 50% {transform: scale(1.1);} 100% {transform: scale(1);} }
+        @keyframes heartbeat { 0%, 100% {transform: scale(1);} 50% {transform: scale(1.15);} }
 
-        /* Photo Styles */
+        /* Polaroid Image Style */
         .slideshow-img {
             width: 100%; height: 380px;
             object-fit: cover;
@@ -68,7 +67,6 @@
             margin-bottom: 15px;
         }
 
-        /* Handwritten Letter Text */
         .letter-content {
             font-family: 'Dancing Script', cursive;
             font-size: 1.5rem;
@@ -78,21 +76,20 @@
             white-space: pre-wrap;
         }
 
-        /* Styled Buttons */
         .btn {
             background: transparent;
-            border: 2.5px solid var(--valentine-red);
+            border: 2px solid var(--valentine-red);
             color: var(--valentine-red);
             padding: 12px 20px;
             font-family: 'Dancing Script', cursive;
             font-size: 1.5rem;
+            font-weight: bold;
             cursor: pointer;
             margin-top: 20px;
             border-radius: 8px;
             width: 100%;
-            transition: all 0.2s;
         }
-        .btn:active { transform: scale(0.95); background-color: var(--soft-pink); }
+        .btn:active { transform: scale(0.95); background-color: #fff1f2; }
     </style>
 </head>
 <body>
@@ -136,9 +133,10 @@ You have my whole heart, today and every day after.
         </div>
 
         <div id="step5" class="card hidden">
-            <h1 style="font-family: 'Dancing Script'; color: var(--valentine-red); font-size: 3.5rem; margin: 0;">Yay! 🥰</h1>
-            <p style="font-size: 1.2rem;">I'll see you on Saturday, my Valentine.</p>
-            <p style="font-size: 2rem;">🌹🌹🌹</p>
+            <h1 style="font-family: 'Dancing Script'; color: var(--valentine-red); font-size: 3rem; margin: 0;">Yaayyyy!</h1>
+            <p style="font-size: 1.6rem; font-weight: 700; color: var(--valentine-red); margin: 10px 0;">I love you so much!</p>
+            <p style="font-size: 1.1rem; color: #444;">I'll see you on Saturday, my Valentine.</p>
+            <p style="font-size: 2.5rem; margin-top: 15px;">🌹✨👩‍❤️‍👨✨🌹</p>
         </div>
     </div>
 
@@ -148,8 +146,7 @@ You have my whole heart, today and every day after.
         const totalPhotos = 6;
 
         function startJourney() {
-            // Play music on first interaction
-            audio.play().catch(e => console.log("Audio play blocked"));
+            audio.play().catch(e => console.log("Music play blocked"));
             document.getElementById('step1').classList.add('hidden');
             document.getElementById('step2').classList.remove('hidden');
         }
@@ -173,16 +170,15 @@ You have my whole heart, today and every day after.
             const yes = document.getElementById('yesBtn');
             let size = parseFloat(window.getComputedStyle(yes).fontSize);
             yes.style.fontSize = (size + 15) + "px";
-            yes.style.padding = "30px";
-            document.getElementById('noBtn').innerText = "Oops, wrong button! 😉";
+            document.getElementById('noBtn').innerText = "Try the other button! 😉";
         }
 
         function celebrate() {
             document.getElementById('step4').classList.add('hidden');
             document.getElementById('step5').classList.remove('hidden');
             
-            // Confetti Cannon
-            var duration = 5 * 1000;
+            // Confetti Cannon Logic
+            var duration = 6 * 1000;
             var animationEnd = Date.now() + duration;
             var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 
